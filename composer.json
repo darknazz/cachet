@@ -1,5 +1,5 @@
 {
-    "name": "mangati/cachet",
+    "name": "darkazz/cachet",
     "type": "library",
     "description": "Cachet client",
     "keywords": ["cachet", "client", "status", "cachethq"],
