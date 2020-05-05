@@ -59,6 +59,30 @@ class IncidentUpdate extends Entity
      *
      * @return string
      */
+    public function getIncident()
+    {
+        return $this->incident;
+    }
+
+    /**
+     * Set the value of Name
+     *
+     * @param string name
+     *
+     * @return self
+     */
+    public function setIncident($incident)
+    {
+        $this->incident = $incident;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Name
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;

@@ -9,6 +9,9 @@ use Mangati\Cachet\Result\Component\ComponentsEnvelope;
 use Mangati\Cachet\Entity\Incident;
 use Mangati\Cachet\Result\Incident\IncidentEnvelope;
 use Mangati\Cachet\Result\Incident\IncidentsEnvelope;
+use Mangati\Cachet\Entity\IncidentUpdate;
+use Mangati\Cachet\Result\IncidentUpdate\IncidentUpdateEnvelope;
+use Mangati\Cachet\Result\IncidentUpdate\IncidentsUpdatesEnvelope;
 use Mangati\Cachet\Entity\Group;
 use Mangati\Cachet\Result\Group\GroupEnvelope;
 use Mangati\Cachet\Result\Group\GroupsEnvelope;
@@ -173,6 +176,61 @@ class Client
     public function deleteIncident($id)
     {
         $this->handler->delete('incidents/' . $id, $id);
+
+        return true;
+    }
+
+    /**
+     * @return IncidentUpdate[]
+     */
+    public function getIncidentsUpdates(array $params = [],$incident_id)
+    {
+        $envelope = $this->handler->get("incidents/$incident_id/updates", IncidentsUpdatesEnvelope::class, $params);
+
+        return $envelope->getData();
+    }
+
+    /**
+     * @param int $incident_id
+     * @param int $update_id
+     * @return IncidentUpdate
+     */
+    public function getIncidentUpdate($incident_id,$update_id)
+    {
+        $envelope = $this->handler->get("incidents/$incident_id/updates/$update_id", IncidentUpdateEnvelope::class);
+
+        return $envelope->getData();
+    }
+
+    /**
+     * @param IncidentUpdate $IncidentUpdate
+     * @return IncidentUpdate
+     */
+    public function addIncidentUpdate(IncidentUpdate $IncidentUpdate)
+    {
+        $envelope = $this->handler->post("incidents/".$IncidentUpdate->getIncident()."/updates", IncidentUpdateEnvelope::class, $IncidentUpdate);
+
+        return $envelope->getData();
+    }
+
+    /**
+     * @param IncidentUpdate $incideIncidentUpdatent
+     * @return Incident
+     */
+    public function updateIncidentUpdate(IncidentUpdate $IncidentUpdate)
+    {
+        $envelope = $this->handler->put("incidents/".$IncidentUpdate->getIncident()."/updates/".$IncidentUpdate->getId(), IncidentUpdateEnvelope::class, $IncidentUpdate);
+
+        return $envelope->getData();
+    }
+
+    /**
+     * @param int $id
+     * @param int $incident_id
+     */
+    public function deleteIncidentUpdate($id,$incident_id)
+    {
+        $this->handler->delete("incidents/$incident_id/updates/" . $id, $id);
 
         return true;
     }
